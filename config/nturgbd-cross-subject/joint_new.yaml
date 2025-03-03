@@ -1,0 +1,55 @@
+work_dir: /home/piyush_2021cs05/rahil/har/har_codebase/work_dir11
+
+# feeder
+feeder: feeders.feeder_ntu.Feeder
+train_feeder_args:
+  data_path: /home/piyush_2021cs05/rahil/har/data/NTU-RGB-D/xsub
+  split: train
+  debug: False
+  random_choose: False
+  random_shift: False
+  random_move: False
+  window_size: 64
+  normalization: False
+  random_rot: True
+  p_interval: [0.5, 1]
+  vel: False
+  bone: False
+
+test_feeder_args:
+  data_path: /home/piyush_2021cs05/rahil/har/data/NTU-RGB-D/xsub
+  split: test
+  window_size: 64
+  p_interval: [0.95]
+  vel: False
+  bone: False
+  debug: False
+
+# model
+model: model.Hyperformer.final_model
+model_args:
+  num_features: 3
+  out_channels: 3
+  num_class: 60
+  n_points: 25
+  n_person: 2
+  graph: graph.ntu_rgb_d.Graph
+  graph_args:
+    labeling_mode: 'spatial'
+  
+
+#optim
+weight_decay: 0.0004
+base_lr: 0.025
+lr_decay_rate: 0.1
+step: [110, 120]
+
+
+warm_up_epoch: 5
+
+# training
+device: [0]
+batch_size: 64
+test_batch_size: 64
+num_epoch: 140
+nesterov: True
